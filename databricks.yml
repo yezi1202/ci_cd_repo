@@ -16,8 +16,10 @@ artifacts:
 variables:
   catalog:
     description: main
+    default: main
   schema:
     description: default
+    default: default
 
 targets:
   dev:
