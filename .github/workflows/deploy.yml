@@ -29,7 +29,7 @@ jobs:
         if: success()
         run: |
           curl -X POST -H "Content-type: application/json" \
-          --data "{\"text\":\":white_check_mark: Deploy by Git Action to Env.Dev **SUCCESS** By **${{ github.actor }}**\"}" \
+          --data "{\"text\":\":white_check_mark: Deploy by Git Action to Env.Dev SUCCESS By ${{ github.actor }}\"}" \
           ${{ secrets.SLACK_WEBHOOK }}
 
       # :x: 6. Notify FAIL (khuyên thêm)
@@ -37,5 +37,5 @@ jobs:
         if: failure()
         run: |
           curl -X POST -H "Content-type: application/json" \
-          --data "{\"text\":\":x: Deploy **FAILED** by **${{ github.actor }}**\"}" \
+          --data "{\"text\":\":x: Deploy FAILED by ${{ github.actor }}\"}" \
           ${{ secrets.SLACK_WEBHOOK }}
