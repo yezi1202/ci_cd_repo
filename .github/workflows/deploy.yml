@@ -1,6 +1,5 @@
 name: Databricks Bundle Deploy
 
-# Chạy tự động khi bạn push code lên nhánh main
 on:
   push:
     branches:
@@ -8,22 +7,17 @@ on:
 
 jobs:
   deploy:
-    name: "Deploy Bundle"
     runs-on: ubuntu-latest
-
     steps:
-      # 1. Tải code từ GitHub về máy ảo của GitHub Actions
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2. Cài đặt Databricks CLI (Dùng Action chuẩn để tránh lỗi PATH)
+      # Sử dụng @main để tránh lỗi "unable to find version"
       - name: Setup Databricks CLI
-        uses: databricks/setup-cli@v0.2.1
+        uses: databricks/setup-cli@main
 
-      # 3. Triển khai Bundle lên Databricks
-      # Lệnh này sẽ tự động đọc file databricks.yml trong project của bạn
       - name: Deploy Bundle
-        run: databricks bundle deploy
+        run: databricks bundle deploy -t dev
         env:
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
