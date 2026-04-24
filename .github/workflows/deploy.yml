@@ -24,3 +24,18 @@ jobs:
         env:
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+      # :white_check_mark: 5. Notify SUCCESS
+      - name: Notify Slack Success
+        if: success()
+        run: |
+          curl -X POST -H "Content-type: application/json" \
+          --data "{\"text\":\":white_check_mark: Deploy by Git Action to Env.Dev SUCCESS By DEV.hoangtd\"}" \
+          ${{ secrets.SLACK_WEBHOOK }}
+
+      # :x: 6. Notify FAIL (khuyên thêm)
+      - name: Notify Slack Failure
+        if: failure()
+        run: |
+          curl -X POST -H "Content-type: application/json" \
+          --data "{\"text\":\":x: Deploy FAILED\"}" \
+          ${{ secrets.SLACK_WEBHOOK }}
